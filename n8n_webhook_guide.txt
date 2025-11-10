@@ -1,0 +1,31 @@
+¡Claro! Aquí tienes una guía paso a paso para obtener la URL del webhook de n8n:
+
+Paso 1: Abre tu instancia de n8n
+---------------------------------
+Abre tu instancia de n8n en tu navegador. Deberías ver el panel de control de n8n.
+
+Paso 2: Crea un nuevo flujo de trabajo
+--------------------------------------
+Haz clic en el botón 'New Workflow' (o 'Nuevo Flujo de Trabajo') en la esquina superior derecha.
+
+Paso 3: Agrega un nodo 'Webhook'
+---------------------------------
+1. Haz clic en el botón '+' para agregar un nuevo nodo.
+2. En el cuadro de búsqueda, escribe 'Webhook' y selecciónalo de la lista.
+
+Paso 4: Configura el nodo 'Webhook'
+-----------------------------------
+1. Se abrirá un panel de configuración para el nodo 'Webhook'.
+2. Mantén el 'HTTP Method' (o 'Método HTTP') como 'POST'.
+3. La 'Path' (o 'Ruta') se generará automáticamente. No necesitas cambiarla.
+
+Paso 5: Copia la URL del webhook
+--------------------------------
+1. En la parte superior del panel de configuración del nodo 'Webhook', verás una sección llamada 'Webhook URLs' (o 'URLs de Webhook').
+2. Copia la URL de la pestaña 'Test' (o 'Prueba'). Esta URL te permitirá probar el webhook sin tener que activar el flujo de trabajo.
+
+Paso 6: Proporcióname la URL
+-----------------------------
+Pega la URL que copiaste aquí. Una vez que la tenga, la agregaré a la ruta de la API para que tu formulario de contacto pueda enviar datos a tu flujo de trabajo de n8n.
+
+Avísame si tienes alguna pregunta en cualquiera de los pasos.

@@ -6,8 +6,6 @@ import { Button } from '@/components/ui/button';
 
 export default function Contact() {
     const [form, setForm] = useState({ name: '', email: '', message: '' });
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [submissionStatus, setSubmissionStatus] = useState<'success' | 'error' | null>(null);
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -15,31 +13,9 @@ export default function Contact() {
     };
 
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setIsSubmitting(true);
-        setSubmissionStatus(null);
-
-        try {
-            const response = await fetch('/api/contact', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(form),
-            });
-
-            if (response.ok) {
-                setSubmissionStatus('success');
-                setForm({ name: '', email: '', message: '' });
-            } else {
-                setSubmissionStatus('error');
-            }
-        } catch (error) {
-            setSubmissionStatus('error');
-        } finally {
-            setIsSubmitting(false);
-        }
+        alert('Thanks for your message! This form can later connect to n8n.');
     };
 
 
@@ -102,18 +78,11 @@ export default function Contact() {
 
 
                 <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
-                    <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-                        {isSubmitting ? 'Sending...' : 'Send Message'}
+                    <Button type="submit" size="lg" className="w-full">
+                        Send Message
                     </Button>
                 </motion.div>
             </motion.form>
-
-            {submissionStatus === 'success' && (
-                <p className="text-green-500 text-center mt-4">Thanks for your message! I'll get back to you soon.</p>
-            )}
-            {submissionStatus === 'error' && (
-                <p className="text-red-500 text-center mt-4">Something went wrong. Please try again later.</p>
-            )}
         </section>
     );
 }
