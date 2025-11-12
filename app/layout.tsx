@@ -6,6 +6,9 @@ import { ThemeProvider } from '@/components/theme-provider';
 export const metadata = {
   title: 'William G Dev — Automation & Data Intelligence',
   description: 'Automations, data insights, and custom solutions with n8n, Power BI, and web technologies.',
+  icons: {
+    icon: '/assets/workflow_icon.png',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
