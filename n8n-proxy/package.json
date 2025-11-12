@@ -1,0 +1,11 @@
+{
+  "name": "n8n-proxy",
+  "version": "1.0.0",
+  "description": "A serverless function to proxy contact form submissions to an n8n webhook.",
+  "main": "api/contact.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
