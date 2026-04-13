@@ -7,12 +7,22 @@ module.exports = {
     ],
     theme: {
     	extend: {
+    		fontFamily: {
+    			mono: ['JetBrains Mono', 'Fira Code', 'Courier New', 'monospace'],
+    			sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+    		},
     		borderRadius: {
     			lg: 'var(--radius)',
     			md: 'calc(var(--radius) - 2px)',
     			sm: 'calc(var(--radius) - 4px)'
     		},
     		colors: {
+    			brand: {
+    				bg: '#0D0D0D',
+    				surface: '#1A1A1A',
+    				text: '#E8E8E0',
+    				accent: '#00FF88',
+    			},
     			background: 'hsl(var(--background))',
     			foreground: 'hsl(var(--foreground))',
     			card: {

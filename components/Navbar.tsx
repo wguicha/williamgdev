@@ -3,53 +3,54 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { ThemeToggle } from '@/components/ui/theme-toggle';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 const navLinks = [
-    { href: '/', label: 'Home' },
-    { href: '/projects', label: 'Projects' },
-    { href: '/about', label: 'About' },
-    { href: '/contact', label: 'Contact' },
+    { href: '/', label: 'home' },
+    { href: '/projects', label: 'projects' },
+    { href: '/about', label: 'about' },
+    { href: '/contact', label: 'contact' },
 ];
 
 export function Navbar() {
     const pathname = usePathname();
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+        const onScroll = () => setScrolled(window.scrollY > 20);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
 
     return (
-        <nav className="w-full border-b border-gray-200 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md fixed top-0 z-50 transition-all">
-            <div className="max-w-5xl mx-auto flex items-center justify-between py-4 px-6">
-                <Link href="/" className="text-2xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100 relative group flex items-baseline">
-                    <span>will</span>
-                    <motion.span
-                        className="text-4xl text-blue-600 dark:text-blue-400 bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent"
-                        initial={{ scale: 0.8 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: 'spring', stiffness: 200 }}
-                    >
-                        IA
-                    </motion.span>
-                    <span>m G</span>
-                    <span className="ml-1">dev</span>
-                    <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gradient-to-r from-blue-500 to-indigo-500 group-hover:w-full transition-all duration-500" />
+        <nav
+            className={cn(
+                'w-full fixed top-0 z-50 transition-all duration-300',
+                scrolled
+                    ? 'bg-brand-bg/80 backdrop-blur-md border-b border-[#1F1F1F]'
+                    : 'bg-transparent'
+            )}
+        >
+            <div className="max-w-5xl mx-auto flex items-center justify-between py-5 px-6">
+                <Link href="/" className="font-mono text-brand-text font-bold text-lg tracking-tight hover:text-brand-accent transition-colors">
+                    WG.dev
                 </Link>
 
-                <div className="flex items-center gap-6 text-sm md:text-base">
+                <div className="flex items-center gap-6 text-sm">
                     {navLinks.map((link) => (
                         <Link
                             key={link.href}
                             href={link.href}
                             className={cn(
-                                'transition-colors hover:text-blue-600 dark:hover:text-blue-400',
+                                'font-mono transition-colors',
                                 pathname === link.href
-                                    ? 'text-blue-600 dark:text-blue-400 font-medium'
-                                    : 'text-gray-700 dark:text-gray-300'
+                                    ? 'text-brand-accent'
+                                    : 'text-[#888880] hover:text-brand-text'
                             )}
                         >
                             {link.label}
                         </Link>
                     ))}
-                    <ThemeToggle />
                 </div>
             </div>
         </nav>

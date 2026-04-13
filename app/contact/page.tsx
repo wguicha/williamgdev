@@ -1,7 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
 
 
 export default function Contact() {
@@ -9,11 +8,9 @@ export default function Contact() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submissionStatus, setSubmissionStatus] = useState<'success' | 'error' | null>(null);
 
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
-
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -21,11 +18,9 @@ export default function Contact() {
         setSubmissionStatus(null);
 
         try {
-            const response = await fetch('/api/contact', {
+            const response = await fetch('https://n8n-proxy-nine.vercel.app/api/contact', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(form),
             });
 
@@ -35,24 +30,34 @@ export default function Contact() {
             } else {
                 setSubmissionStatus('error');
             }
-        } catch (error) {
+        } catch {
             setSubmissionStatus('error');
         } finally {
             setIsSubmitting(false);
         }
     };
 
+    const inputClass =
+        'w-full bg-brand-surface border border-[#2A2A2A] text-brand-text placeholder-[#444440] font-mono text-sm px-4 py-3 focus:outline-none focus:border-brand-accent transition-colors';
 
     return (
-        <section className="max-w-xl mx-auto">
-            <motion.h1
-                className="text-4xl font-bold text-center mb-8"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-            >
-                Contact Me
-            </motion.h1>
-
+        <section className="max-w-xl mx-auto py-16 space-y-8">
+            <div>
+                <motion.p
+                    className="font-mono text-brand-accent text-xs tracking-widest uppercase mb-4"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                >
+                    // contact
+                </motion.p>
+                <motion.h1
+                    className="font-mono text-4xl font-bold text-brand-text"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                >
+                    Let's Work Together
+                </motion.h1>
+            </div>
 
             <motion.form
                 onSubmit={handleSubmit}
@@ -60,59 +65,64 @@ export default function Contact() {
                 initial="hidden"
                 animate="visible"
                 variants={{
-                    visible: { transition: { staggerChildren: 0.2 } },
+                    visible: { transition: { staggerChildren: 0.1 } },
                 }}
             >
                 <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
-                    <label className="block text-sm font-medium mb-1">Name</label>
+                    <label className="block font-mono text-xs text-[#555550] uppercase tracking-widest mb-2">Name</label>
                     <input
                         type="text"
                         name="name"
                         value={form.name}
                         onChange={handleChange}
-                        className="w-full border border-gray-300 rounded-lg p-2"
+                        className={inputClass}
                         required
                     />
                 </motion.div>
 
-
                 <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
-                    <label className="block text-sm font-medium mb-1">Email</label>
+                    <label className="block font-mono text-xs text-[#555550] uppercase tracking-widest mb-2">Email</label>
                     <input
                         type="email"
                         name="email"
                         value={form.email}
                         onChange={handleChange}
-                        className="w-full border border-gray-300 rounded-lg p-2"
+                        className={inputClass}
                         required
                     />
                 </motion.div>
 
-
                 <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
-                    <label className="block text-sm font-medium mb-1">Message</label>
+                    <label className="block font-mono text-xs text-[#555550] uppercase tracking-widest mb-2">Message</label>
                     <textarea
                         name="message"
                         value={form.message}
                         onChange={handleChange}
-                        className="w-full border border-gray-300 rounded-lg p-2 h-32"
+                        className={`${inputClass} h-36 resize-none`}
                         required
                     />
                 </motion.div>
 
-
                 <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
-                    <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-                        {isSubmitting ? 'Sending...' : 'Send Message'}
-                    </Button>
+                    <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="w-full font-mono text-sm px-6 py-3 bg-brand-accent text-brand-bg font-semibold hover:bg-brand-accent/90 disabled:opacity-50 transition-colors"
+                    >
+                        {isSubmitting ? '// sending...' : '→ Send Message'}
+                    </button>
                 </motion.div>
             </motion.form>
 
             {submissionStatus === 'success' && (
-                <p className="text-green-500 text-center mt-4">Thanks for your message! I'll get back to you soon.</p>
+                <p className="font-mono text-sm text-brand-accent text-center">
+                    // message sent. I'll get back to you soon.
+                </p>
             )}
             {submissionStatus === 'error' && (
-                <p className="text-red-500 text-center mt-4">Something went wrong. Please try again later.</p>
+                <p className="font-mono text-sm text-red-400 text-center">
+                    // something went wrong. Please try again.
+                </p>
             )}
         </section>
     );
